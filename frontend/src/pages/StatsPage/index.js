@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../../components/Header';
 import { Container } from 'react-bootstrap';
 import ShortenerService from '../../services/shortenerService';
-
+import vars from '../../configs/vars';
 import { parseISO, formatRelative } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 
@@ -57,7 +57,7 @@ class StatsPage extends React.Component {
                     </StatsContainer>
                 ) : (
                     <StatsContainer className="text-center">
-                        <p><b>https://prea.tk/{shortenedURL.code}</b></p>
+                        <p><b>{vars.HOST_APP + shortenedURL.code}</b></p>
                         <p>Redireciona para:<br/>{shortenedURL.url}</p>
                         <StatsRow>
                             <StatsBox>

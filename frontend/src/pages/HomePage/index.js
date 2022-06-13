@@ -3,6 +3,7 @@ import { Container, InputGroup, FormControl, Button, Spinner, Alert } from 'reac
 import Header from '../../components/Header';
 import { ContentContainer, Form, AdsBlock } from './styles';
 import ShortenerService from   '../../services/shortenerService';
+import vars from '../../configs/vars';
 
 class HomePage extends React.Component {
     constructor(props){
@@ -70,13 +71,13 @@ class HomePage extends React.Component {
                                 <InputGroup className="mb-3">
                                     <FormControl
                                         autoFocus={true}
-                                        defaultValue={`https://prea.tk/${code}`}
+                                        defaultValue={vars.HOST_APP + code}
                                         ref={(input) => this.inputURL = input}
                                     />
                                     <Button variant="outline-secondary" onClick={() => this.copyToClipboard()}>Copiar</Button>
                                 
                                 </InputGroup>
-                                  <p>Para acompanhar as estatísticas, acesse https://prea.tk/{code}</p>
+                                  <p>Para acompanhar as estatísticas, acesse {vars.HOST_APP + code}/stats</p>
                                 </>
                             )
                         )}
