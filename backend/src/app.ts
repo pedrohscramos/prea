@@ -5,29 +5,15 @@ import cors from 'cors';
 const app = express();
 
 app.use(express.json());
-const whitelist = ["http://www.prea.tk"]
+app.use((req, res, next) => {
+	//Qual site tem permissão de realizar a conexão, no exemplo abaixo está o "*" indicando que qualquer site pode fazer a conexão
+    res.header("Access-Control-Allow-Origin", "*");
+	//Quais são os métodos que a conexão pode realizar na API
+    res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
+    app.use(cors());
+    next();
+});
 
-const corsOptions = {
-
-  origin: function (origin:any, callback:any) {
-
-    if (!origin || whitelist.indexOf(origin) !== -1) {
-
-      callback(null, true)
-
-    } else {
-
-      callback(new Error("Not allowed by CORS"))
-
-    }
-
-  },
-
-  credentials: true,
-
-}
-
-app.use(cors(corsOptions))
 app.use(linksRouter);
 
 
