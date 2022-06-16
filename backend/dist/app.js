@@ -7,12 +7,19 @@ const express_1 = __importDefault(require("express"));
 const links_1 = __importDefault(require("./routes/links"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
-var corsOptions = {
-    origin: '*',
-    optionsSuccessStatus: 200,
-    methods: "GET, PUT, POST, DELETE, PATCH"
-};
 app.use(express_1.default.json());
+const whitelist = ["http://www.prea.tk"];
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (!origin || whitelist.indexOf(origin) !== -1) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true,
+};
 app.use((0, cors_1.default)(corsOptions));
 app.use(links_1.default);
 exports.default = app;

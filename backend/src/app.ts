@@ -3,13 +3,31 @@ import linksRouter from './routes/links';
 import cors from 'cors';
 
 const app = express();
-var corsOptions = {
-    origin: '*',
-    optionsSuccessStatus: 200, // For legacy browser support
-    methods: "GET, PUT, POST, DELETE, PATCH"
-}
+
 app.use(express.json());
-app.use(cors(corsOptions));
+const whitelist = ["http://www.prea.tk"]
+
+const corsOptions = {
+
+  origin: function (origin:any, callback:any) {
+
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+
+      callback(null, true)
+
+    } else {
+
+      callback(new Error("Not allowed by CORS"))
+
+    }
+
+  },
+
+  credentials: true,
+
+}
+
+app.use(cors(corsOptions))
 app.use(linksRouter);
 
 
